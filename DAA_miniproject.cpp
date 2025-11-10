@@ -6,7 +6,7 @@
 #include <cstdlib>
 using namespace std;
 
-// ======= PARAMETERS =======
+// PARAMETERS
 #define NUM_CITIES 5
 #define NUM_ANTS 10
 #define ALPHA 1.0       // influence of pheromone
@@ -15,7 +15,7 @@ using namespace std;
 #define Q 100           // pheromone deposit factor
 #define ITERATIONS 100  // number of cycles
 
-// ======= GLOBAL VARIABLES =======
+// GLOBAL VARIABLES 
 double dist[NUM_CITIES][NUM_CITIES] = {
     {0, 2, 9, 10, 7},
     {1, 0, 6, 4, 3},
@@ -28,7 +28,7 @@ double pheromone[NUM_CITIES][NUM_CITIES];
 double bestLength = DBL_MAX;
 vector<int> bestTour;
 
-// ======= ANT STRUCTURE =======
+// ANT STRUCTURE 
 struct Ant {
     vector<int> tour;
     vector<bool> visited;
@@ -47,14 +47,14 @@ struct Ant {
     }
 };
 
-// ======= INITIALIZATION =======
+// INITIALIZATION
 void initialize() {
     for (int i = 0; i < NUM_CITIES; i++)
         for (int j = 0; j < NUM_CITIES; j++)
             pheromone[i][j] = 1.0; // equal pheromone initially
 }
 
-// ======= FUNCTION TO SELECT NEXT CITY =======
+// FUNCTION TO SELECT NEXT CITY
 int selectNextCity(int currentCity, Ant &ant) {
     vector<double> probabilities(NUM_CITIES, 0.0);
     double sum = 0.0;
@@ -85,7 +85,7 @@ int selectNextCity(int currentCity, Ant &ant) {
     return -1;
 }
 
-// ======= CONSTRUCT TOUR =======
+// CONSTRUCT TOUR 
 void constructTour(Ant &ant) {
     int startCity = rand() % NUM_CITIES;
     ant.tour.push_back(startCity);
@@ -104,7 +104,7 @@ void constructTour(Ant &ant) {
     ant.tourLength += dist[currentCity][startCity];
 }
 
-// ======= UPDATE PHEROMONE TRAILS =======
+// UPDATE PHEROMONE TRAILS 
 void updatePheromones(vector<Ant> &ants) {
     for (int i = 0; i < NUM_CITIES; i++)
         for (int j = 0; j < NUM_CITIES; j++)
@@ -120,7 +120,7 @@ void updatePheromones(vector<Ant> &ants) {
     }
 }
 
-// ======= MAIN FUNCTION =======
+// MAIN FUNCTION
 int main() {
     srand((unsigned)time(0));
     initialize();
@@ -143,7 +143,7 @@ int main() {
              << " | Best tour length so far: " << bestLength << endl;
     }
 
-    cout << "\n=== Final Best Tour ===\n";
+    cout << "\n Final Best Tour \n";
     for (size_t i = 0; i < bestTour.size(); i++) {
         cout << bestTour[i];
         if (i < bestTour.size() - 1) cout << " -> ";
